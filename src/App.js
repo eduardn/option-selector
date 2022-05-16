@@ -1,23 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { OptionSelector, Item } from './option-selector/OptionSelector';
+
 function App() {
+  const IDP_CARDS = [
+    {
+      id: 'azure',
+      title: 'Azure'
+    },
+    {
+      id: 'google',
+      title: 'Google'
+    },
+    {
+      id: 'saml',
+      title: 'SAML'
+    }
+  ];
+
+  const onSelectionChange = (item) => {
+    console.log('>>>>>> SELECTED', item);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <OptionSelector
+        onSelectionChange={onSelectionChange}
+        items={IDP_CARDS}
+        selectionMode="single"
+        disabledKeys={['google']}
+        defaultSelectedKeys={['azure']}
+      >
+        {idpCard => <Item key={idpCard.id}><div className="card">{idpCard.title}</div></Item>}
+      </OptionSelector>
     </div>
   );
 }
